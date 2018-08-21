@@ -1,0 +1,9 @@
+.roundAvtar .sapMObjLIcon{
+	 border-radius: 50% !important;
+}
+.fullheight .sapMObjLIconDiv{
+	height: 4rem !important;
+}
+.noPadding .sapFDynamicPage-Std-Phone .sapFDynamicPageContent{
+	padding: 0rem !important;
+}

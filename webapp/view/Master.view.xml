@@ -1,0 +1,56 @@
+<mvc:View controllerName="kpk.github.viewer.controller.Master" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.f"
+	xmlns:semantic="sap.f.semantic">
+	<semantic:SemanticPage id="masterPage" preserveHeaderStateOnScroll="true" toggleHeaderOnTitleClick="false" class="noPadding">
+		<semantic:titleHeading>
+			<Title text="{i18n>searchUser}"/>
+		</semantic:titleHeading>
+		<semantic:headerContent>
+			<FlexBox wrap="Wrap" fitContainer="true" alignItems="Center">
+				<f:Avatar src="{/0/owner/avatar_url}" displaySize="S" displayShape="Square" class="sapUiTinyMarginEnd"></f:Avatar>
+				<SearchField id="userSearchField" showRefreshButton="true" placeholder="{i18n>enterUserName}" tooltip="{i18n>enterUserName}"
+					search="onSearchUserName" width="100%"/>
+			</FlexBox>
+		</semantic:headerContent>
+		<semantic:content >
+			<Table id="list" class="" inset="false" items="{ path: '/', sorter: { path: 'full_name', descending: false } }"
+				noDataText="{masterView>/noDataText}" mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}" growing="true"
+				growingScrollToLoad="true" updateFinished="onUpdateFinished" selectionChange="onSelectionChange" sticky="HeaderToolbar">
+				<headerToolbar>
+					<Toolbar>
+						<Title id="masterPageTitle" text="{masterView>/title}"/>
+						<ToolbarSpacer/>
+						<SearchField id="repositorySearchField" showRefreshButton="true" tooltip="{i18n>repoListSearchTooltip}" search="onSearchRepository"
+							width="auto">
+							<layoutData>
+								<OverflowToolbarLayoutData minWidth="150px" maxWidth="240px" shrinkable="true" priority="NeverOverflow"/>
+							</layoutData>
+						</SearchField>
+						<Button id="sortButton" press="onOpenViewSettings" icon="sap-icon://sort" type="Transparent"/>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<Column width="30em">
+						<Text text="{i18n>fullname}"/>
+					</Column>
+					<Column minScreenWidth="Desktop" demandPopin="true" displayPopin="Inline">
+						<Text text="{i18n>createdAt}"/>
+					</Column>
+					<Column minScreenWidth="Desktop" demandPopin="true" displayPopin="Inline">
+						<Text text="{i18n>updated}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Navigation">
+						<cells>
+							<ObjectIdentifier title="{full_name}"/>
+							<Text
+								text="{path:'created_at', type: 'sap.ui.model.type.DateTime', formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ssZ'}, style: 'short'}}"/>
+							<Text
+								text="{path:'updated_at', type: 'sap.ui.model.type.DateTime', formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ssZ'}, pattern : 'dd:MM:yyyy'}}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</semantic:content>
+	</semantic:SemanticPage>
+</mvc:View>

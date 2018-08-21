@@ -1,0 +1,5 @@
+<mvc:View controllerName="kpk.github.viewer.controller.BaseController" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+	<MessagePage id="page" title="{i18n>detailTitle}" text="{i18n>noRepositoryFoundText}" icon="sap-icon://product" description=""
+		showNavButton="{= ${device>/system/phone} || ${device>/system/tablet} &amp;&amp; ${device>/orientation/portrait} }"
+		navButtonPress="onNavBack"></MessagePage>
+</mvc:View>

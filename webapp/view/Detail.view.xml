@@ -1,0 +1,132 @@
+<mvc:View displayBlock="true" height="100%" controllerName="kpk.github.viewer.controller.Detail" xmlns="sap.uxap" xmlns:m="sap.m"
+	xmlns:f="sap.f" xmlns:tnt="sap.tnt" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc">
+	<ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false"
+		headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
+		<headerTitle>
+			<ObjectPageDynamicHeaderTitle>
+				<expandedHeading>
+					<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Center">
+						<m:Title text="{repositoryData>/full_name}" wrapping="true" class="sapUiSmallMarginEnd"/>
+						<!--<tnt:InfoLabel text="In transit"/>-->
+					</m:FlexBox>
+				</expandedHeading>
+				<snappedHeading>
+					<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Center">
+						<m:FlexBox wrap="NoWrap" fitContainer="true" alignItems="Center" class="sapUiTinyMarginEnd">
+							<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Center">
+								<m:Title text="{repositoryData>/full_name}" wrapping="true" class="sapUiSmallMarginEnd"/>
+								<!--<tnt:InfoLabel text="In transit"/>-->
+							</m:FlexBox>
+							<m:FlexBox wrap="NoWrap" fitContainer="true" alignItems="Center" class="sapUiLargeMarginBegin">
+								<m:HBox justifyContent="SpaceAround" class="sapUiLargeMarginEnd">
+									<m:Label text="Forks" class="sapUiTinyMarginEnd"/>
+									<m:ObjectNumber number="{repositoryData>/forks_count}" emphasized="true"/>
+								</m:HBox>
+								<m:HBox justifyContent="SpaceBetween" class="sapUiLargeMarginEnd">
+									<m:Label text="Watch" class="sapUiTinyMarginEnd"/>
+									<m:ObjectNumber number="{repositoryData>/watchers_count}" emphasized="true"/>
+								</m:HBox>
+								<m:HBox justifyContent="SpaceBetween" class="sapUiLargeMarginEnd">
+									<m:Label text="Stars" class="sapUiTinyMarginEnd"/>
+									<m:ObjectNumber number="{repositoryData>/stargazers_count}" emphasized="true"/>
+								</m:HBox>
+							</m:FlexBox>
+						</m:FlexBox>
+					</m:FlexBox>
+				</snappedHeading>
+				<navigationActions>
+					<m:OverflowToolbarButton id="enterFullScreen" type="Transparent" icon="sap-icon://full-screen" tooltip="Enter Full Screen Mode"
+						visible="{= !${device>/system/phone} &amp;&amp; !${appView>/actionButtonsInfo/midColumn/fullScreen}}" press="toggleFullScreen"/>
+					<m:OverflowToolbarButton id="exitFullScreen" type="Transparent" icon="sap-icon://exit-full-screen" press="toggleFullScreen"
+						tooltip="Exit Full Screen Mode" visible="{= !${device>/system/phone} &amp;&amp; ${appView>/actionButtonsInfo/midColumn/fullScreen}}"/>
+					<m:OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="onCloseDetailPress" tooltip="Close column"/>
+				</navigationActions>
+				<actions>
+					<m:Link text="Open Repo" href="{repositoryData>/html_url}" target="_blank"/>
+				</actions>
+			</ObjectPageDynamicHeaderTitle>
+		</headerTitle>
+		<headerContent>
+			<m:FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch">
+				<m:VBox justifyContent="Center" class="sapUiLargeMarginEnd">
+					<m:Label text="{i18n>createdAt}"/>
+					<m:ObjectNumber
+						number="{path:'repositoryData>/created_at', type: 'sap.ui.model.type.DateTime', formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ssZ'}, pattern : 'dd:MM:yyyy'}}"
+						emphasized="false"/>
+				</m:VBox>
+				<m:VBox justifyContent="Center" class="sapUiLargeMarginEnd">
+					<m:Label text="{i18n>pushedAt}"/>
+					<m:ObjectNumber
+						number="{path:'repositoryData>/pushed_at', type: 'sap.ui.model.type.DateTime', formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ssZ'}, pattern : 'dd:MM:yyyy'}}"
+						emphasized="false"/>
+				</m:VBox>
+				<m:VBox justifyContent="Center" class="sapUiLargeMarginEnd">
+					<m:Label text="{i18n>updated}"/>
+					<m:ObjectNumber
+						number="{path:'repositoryData>/updated_at', type: 'sap.ui.model.type.DateTime', formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ssZ'}, pattern : 'dd:MM:yyyy'}}"
+						emphasized="false"/>
+				</m:VBox>
+				<m:VBox justifyContent="Center" class="sapUiLargeMarginEnd">
+					<m:Label text="{i18n>forksLabel}"/>
+					<m:ObjectNumber number="{repositoryData>/forks_count}" emphasized="false"/>
+				</m:VBox>
+				<m:VBox justifyContent="Center" class="sapUiLargeMarginEnd">
+					<m:Label text="{i18n>watchLabel}"/>
+					<m:ObjectNumber number="{repositoryData>/watchers_count}" emphasized="false"/>
+				</m:VBox>
+				<m:VBox justifyContent="Center" class="sapUiLargeMarginEnd">
+					<m:Label text="{i18n>starsLabel}"/>
+					<m:ObjectNumber number="{repositoryData>/stargazers_count}" emphasized="false"/>
+				</m:VBox>
+			</m:FlexBox>
+		</headerContent>
+		<sections>
+			<ObjectPageSection title="{i18n>detailOverviewSectionHeading}">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+							<form:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanL="12" labelSpanM="12" emptySpanL="0" emptySpanM="0" columnsL="2"
+								columnsM="2">
+								<form:content>
+									<m:Label text="{i18n>descriptionLabel}"/>
+									<m:Text text="{repositoryData>/description}"/>
+									<m:Label text="{i18n>languageLabel}"/>
+									<m:Text text="{repositoryData>/language}"/>
+								</form:content>
+							</form:SimpleForm>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+			<ObjectPageSection title="{detailView>/contributorTableTitle}">
+				<subSections>
+					<ObjectPageSubSection>
+						<blocks>
+							<m:Table id="contributorsTable" items="{contributorData>/contributors}" updateFinished="onContributorsTableUpdateFinished">
+								<m:columns>
+									<m:Column width="30em">
+										<m:Label text="{i18n>githubUserName}"/>
+									</m:Column>
+									<m:Column>
+										<m:Label text="{i18n>contributions}"/>
+									</m:Column>
+									<m:Column/>
+									<m:Column/>
+								</m:columns>
+								<m:items>
+									<m:ColumnListItem>
+										<m:cells>
+											<m:ObjectListItem icon="{contributorData>avatar_url}" class="roundAvtar fullheight" title="{contributorData>login}"/>
+											<m:ObjectNumber number="{contributorData>contributions}" unit=""/>
+											<m:Link text="Open Profile" href="{contributorData>html_url}" target="_blank"/>
+										</m:cells>
+									</m:ColumnListItem>
+								</m:items>
+							</m:Table>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+	</ObjectPageLayout>
+</mvc:View>
