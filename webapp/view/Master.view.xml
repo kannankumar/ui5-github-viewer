@@ -42,9 +42,9 @@
 				<items>
 					<ColumnListItem type="Navigation">
 						<cells>
-							<ObjectIdentifier title="{full_name}"/>
+							<ObjectIdentifier title="{name}"/>
 							<Text
-								text="{path:'created_at', type: 'sap.ui.model.type.DateTime', formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ssZ'}, style: 'short'}}"/>
+								text="{path:'created_at', type: 'sap.ui.model.type.DateTime', formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ssZ'}, pattern : 'dd:MM:yyyy'}}"/>
 							<Text
 								text="{path:'updated_at', type: 'sap.ui.model.type.DateTime', formatOptions: { source: { pattern: 'yyyy-MM-ddTHH:mm:ssZ'}, pattern : 'dd:MM:yyyy'}}"/>
 						</cells>
