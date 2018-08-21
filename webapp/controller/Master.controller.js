@@ -218,6 +218,7 @@ sap.ui.define([
 		_loadUserRepositories: function(userName) {
 			if (!userName) {
 				userName = "sap";
+				this.getView().byId("userSearchField").setValue(userName);
 			}
 			var sPath = "/github/users/" + userName + "/repos";
 			this.restClient.read(sPath).then(function(oResults) {
